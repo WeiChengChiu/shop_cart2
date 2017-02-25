@@ -45,6 +45,16 @@ RSpec.describe Cart, type: :model do
     end
 
     it "可以計算整台購物車的總消費金額" do
+      cart = Cart.new
+      p1 = Product.create(title: "海賊王", price:80)
+      p2 = Product.create(title: "美食的俘虜", price:100)
+
+      3.times {
+        cart.add_item(p1.id)
+        cart.add_item(p2.id)
+      }
+
+      expect( cart.total_price ).to be 540
     end
 
     it "特別活動可能可搭配折扣（例如聖誕節時全面打9折，或滿額滿千送百）" do
