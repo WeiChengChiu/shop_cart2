@@ -9,6 +9,14 @@ RSpec.describe Cart, type: :model do
     end
 
     it "如果加 相同種類商品 到購物車，購買項目（CartItem）並不會增加，但 商品數量 會改變" do
+      cart = Cart.new
+      3.times { cart.add_item(1) }
+      5.times { cart.add_item(2) }
+      7.times { cart.add_item(3) }
+
+      expect( cart.items.length ).to be 3
+      expect( cart.items.first.quantity ).to be 3
+      expect( cart.items.second.quantity ).to be 5
     end
 
     it "商品可以放到購物車裡，也可以再拿出來" do
@@ -25,6 +33,7 @@ RSpec.describe Cart, type: :model do
     it "可以將購物車內容轉成 Hash，存到 Session 裡" do
 
     end
+
     it "可以把 Session 的內容(Hash 格式)，還原成購物車的內容" do
 
     end
