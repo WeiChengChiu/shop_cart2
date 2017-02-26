@@ -58,6 +58,19 @@ RSpec.describe Cart, type: :model do
     end
 
     it "特別活動可能可搭配折扣（例如聖誕節時全面打9折，或滿額滿千送百）" do
+      cart = Cart.new
+      p1 = Product.create(title: "海賊王", price:80)
+      p2 = Product.create(title: "美食的俘虜", price:100)
+
+      5.times { cart.add_item(p1.id) }
+      3.times { cart.add_item(p2.id) }
+
+      Timecop.travel(Time.local(2016, 12, 24, 10, 30, 0))
+      expect(cart.total_price).to be 700
+
+      Timecop.travel(Time.local(2016, 12, 25, 10, 30, 0))
+      expect(cart.total_price).to be 630.0
+
     end
   end
 

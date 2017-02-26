@@ -20,7 +20,13 @@ class Cart
   end
 
   def total_price
-    items.reduce(0) { |sum, item| sum + item.price }
+    total =  items.reduce(0) { |sum, item| sum + item.price }
+
+    if xmas
+      total * 0.9
+    else
+      total
+    end
   end
 
   def serialize
@@ -39,5 +45,10 @@ class Cart
         CartItem.new(item_hash["product_id"], item_hash["quantity"])
       }
     end
+  end
+
+  private
+  def xmas
+    Date.today.month == 12 && Date.today.day == 25
   end
 end
